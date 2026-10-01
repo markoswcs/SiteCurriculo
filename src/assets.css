@@ -1175,3 +1175,122 @@ footer.scroll-active i { animation: footerOrbIn .75s cubic-bezier(.16,1,.3,1) bo
   .about-data::after { display: none; }
   .services .service-list article { transform-origin: center; }
 }
+
+/* Camada responsiva consolidada: desktop compacto, tablet e celular. */
+@media (max-width: 1100px) {
+  header { padding-inline: 4vw; }
+  header nav { gap: 1.2rem; }
+  .hero:has(.markos-portrait) .hero-title { font-size: clamp(68px, 10.5vw, 130px); }
+  .hero:has(.markos-portrait) .hero-copy { max-width: 320px; }
+  .creative { min-height: 92vh; }
+  .creative-copy { width: min(61vw, 700px); }
+  .creative-brain { left: 53%; width: min(56vw, 610px); }
+  .about-markos { height: 118vh; min-height: 970px; }
+  .about-profile { width: min(40vw, 430px); }
+  .about-markos .about-copy { margin-top: 43vh; }
+  .about-data { width: min(25vw, 280px); }
+  .project-head { grid-template-columns: 9% 29% 1fr auto; }
+  .project { height: 82vh; }
+  .project-art .project-screen { width: min(82vw, 1000px); height: min(46vw, 570px); }
+  .testimonials { padding-block: 14vw; }
+  .quotes { gap: 12px; }
+  .contact { min-height: 82vh; }
+  footer div { font-size: clamp(76px, 11.8vw, 170px); }
+  .footer-galaxy { right: 5vw; width: min(27vw, 300px); }
+}
+
+@media (max-width: 760px) {
+  body { overflow-x: clip; }
+  header { padding: 18px 5vw; font-size: 8px; }
+  header span:first-child { max-width: 135px; }
+  header nav { gap: 0; }
+  header nav a:last-child { padding: 8px 10px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; }
+  .hero { height: 760px; min-height: 760px; }
+  .hero:has(.markos-portrait) .hero-title { top: 15vh; left: 5vw; width: 90vw; font-size: clamp(44px, 13.6vw, 82px); line-height: .84; }
+  .hero-head.markos-portrait { top: 20vh; width: 92vw; height: 49vh; }
+  .hero:has(.markos-portrait) .hero-copy { top: 59vh; left: 5vw; width: 77vw; max-width: 320px; font-size: 12px; line-height: 1.55; }
+  .hero:has(.markos-portrait) .hero-pill { right: auto; left: 5vw; bottom: 6vh; padding: 14px 17px; }
+  .scroll-note { right: 5vw; bottom: 7vh; font-size: 8px; }
+
+  .creative { min-height: 750px; padding: 14vw 6vw 11vw; }
+  .creative-label { font-size: 8px; }
+  .creative-copy { width: 100%; margin-top: 12vw; }
+  .creative-copy h2 { max-width: 100%; font-size: clamp(41px, 12.8vw, 66px); line-height: .84; }
+  .creative-copy p { width: min(280px, 74vw); margin-top: 7vw; font-size: 13px; }
+  .creative-copy span { display: block; max-width: 235px; font-size: 8px; line-height: 1.6; }
+  .creative-brain { top: 42%; left: 19%; width: 82vw; opacity: .84; }
+  .creative-note { right: 6vw; bottom: 8vw; font-size: 8px; }
+
+  .about-markos { height: 1210px; min-height: 0; padding-top: 13vw; }
+  .about-markos h2 { padding-top: 0; font-size: 16.2vw; line-height: .9; }
+  .about-profile { top: 15%; width: 73vw; }
+  .about-markos .about-copy { margin-top: 68vw; width: 84vw; }
+  .about-markos .about-copy p { font-size: 15px; }
+  .about-data { width: min(44vw, 235px); padding: 12px; }
+  .about-data strong { font-size: 12px; }
+  .about-data p { font-size: 11px; }
+  .data-left { left: 4vw; top: 51%; }
+  .data-right { right: 4vw; top: 65%; }
+  .data-creative { left: 4vw; bottom: 4%; }
+  .data-execution { right: 4vw; bottom: 18%; }
+  .black-hole { width: 33vw; left: -7vw; bottom: 12%; }
+  .star-one { top: 12%; font-size: 16vw; }
+  .star-two { top: 19%; left: 7vw; }
+
+  .services, .projects, .testimonials, .contact { padding-inline: 5vw; }
+  .services { padding-top: 18vw; }
+  .services > h2, .projects > h2 { font-size: clamp(54px, 15vw, 88px); line-height: .92; }
+  .services .service-list { margin-top: 12vw; gap: 11px; }
+  .services .service-list article { grid-template-columns: 44px 1fr; min-height: 120px; padding: 20px 18px; }
+  .services .service-list article strong { font-size: 15px; }
+  .services .service-list article h3 { font-size: clamp(25px, 8vw, 38px); }
+  .services .service-list article p { grid-column: 2; padding-right: 76px; font-size: 12px; }
+  .services .service-list article > .service-scene { right: -14px; width: 84px; opacity: .65; }
+
+  .projects { margin-top: -4vh; padding-top: 18vw; padding-bottom: 22vw; }
+  .project-stack { margin-top: 13vw; }
+  .project { height: 76vh; min-height: 510px; top: calc(var(--offset) * .55); border-radius: 13px 13px 0 0; }
+  .project-head { height: auto; min-height: 64px; padding: 10px 13px; grid-template-columns: 28px 1fr auto; gap: 9px; }
+  .project-head strong { font-size: 11px; }
+  .project-head span { display: none; }
+  .project-head .pill { padding: 8px 10px; font-size: 7px; }
+  .project-art { padding: 4vw; }
+  .project-art .project-screen { width: 100%; height: auto; aspect-ratio: 16 / 10; border-radius: 10px; }
+  .project-art .project-screen img { padding: 5px; }
+  .project.acid .project-screen img { padding: 0; }
+
+  .testimonials { padding-top: 21vw; padding-bottom: 21vw; }
+  .testimonials > h2::before { font-size: clamp(47px, 13vw, 75px); line-height: .9; }
+  .quotes { grid-template-columns: 1fr; margin-top: 13vw; }
+  .quotes article { min-height: 235px; }
+
+  .contact { min-height: 760px; padding-top: 20vw; padding-bottom: 18vw; }
+  .contact h2 { font-size: clamp(64px, 18vw, 110px); line-height: .8; }
+  .contact-intro { width: min(92vw, 440px); margin-top: 9vw; font-size: 18px; }
+  .contact-actions { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 9vw; }
+  .contact-actions a { width: 100%; text-align: center; }
+  .contact-mail, .contact-whatsapp { padding: 17px 15px; }
+  .contact-socials { margin-top: 12vw; gap: 7px; }
+  .contact-socials a { padding: 11px 12px; font-size: 9px; gap: 8px; }
+  .contact-orb { width: 50vw; right: -12vw; top: 14%; opacity: .55; }
+
+  footer { min-height: 540px; padding: 18vw 6vw 12vw; }
+  footer div { max-width: 92vw; font-size: clamp(60px, 17.2vw, 104px); line-height: .94; }
+  footer span { left: 6vw; bottom: 28px; gap: 13px; }
+  .footer-kicker { left: 6vw; top: 9%; }
+  .footer-cta { right: 6vw; bottom: 70px; font-size: 8px; }
+  .footer-galaxy { right: -9vw; top: 43%; width: 48vw; opacity: .58; }
+}
+
+@media (max-width: 420px) {
+  .hero { height: 700px; min-height: 700px; }
+  .hero:has(.markos-portrait) .hero-copy { top: 57vh; }
+  .about-markos { height: 1160px; }
+  .about-data { width: 46vw; padding: 10px; }
+  .about-data small, .about-data span { font-size: 7px; }
+  .about-data p { font-size: 10px; }
+  .project { min-height: 465px; }
+  .project-head strong { max-width: 145px; }
+  .contact-socials { flex-wrap: wrap; }
+  .footer-cta { max-width: 47vw; text-align: right; line-height: 1.55; }
+}
