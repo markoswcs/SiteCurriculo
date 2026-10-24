@@ -322,6 +322,19 @@ a:hover .arrow { transform: translate(3px, -3px) rotate(0deg); }
 .browser-view { overflow: hidden; aspect-ratio: 16 / 9.4; }
 .browser-view img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 1.2s var(--ease); }
 .project-media:hover .browser-view img { transform: scale(1.04) !important; }
+.phone {
+  height: 100%; max-height: 620px; aspect-ratio: 390 / 820; padding: 10px; border-radius: 44px;
+  background: linear-gradient(145deg, #2a2a2a, #0b0b0b); border: 1px solid rgba(255, 255, 255, .14);
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, .7), inset 0 0 0 2px #050505;
+  transition: transform .9s var(--ease), box-shadow .9s var(--ease);
+}
+.project-media:hover .phone { transform: rotate(-3deg) translateY(-8px); box-shadow: 0 60px 100px -20px rgba(0, 0, 0, .8), 0 0 60px -10px var(--tone); }
+.phone-view { position: relative; height: 100%; border-radius: 34px; overflow: hidden; background: #0a0d12; }
+.phone-view::before {
+  content: ''; position: absolute; z-index: 1; top: 8px; left: 50%; translate: -50% 0;
+  width: 84px; height: 22px; border-radius: 999px; background: #000;
+}
+.phone-view img { width: 100%; height: 100%; object-fit: cover; object-position: top; padding-top: 18px; background: #0a0d12; }
 .is-tall .browser { width: auto; height: 100%; aspect-ratio: auto; }
 .is-tall .browser-view { aspect-ratio: 4 / 4.6; height: calc(100% - 38px); }
 
@@ -453,6 +466,7 @@ a:hover .arrow { transform: translate(3px, -3px) rotate(0deg); }
   .project-kind { margin-top: 0; }
   .is-tall .browser { height: auto; width: min(100%, 420px); }
   .is-tall .browser-view { height: auto; }
+  .phone { height: auto; width: min(72vw, 300px); }
 
   .timeline li { grid-template-columns: 1fr; }
   .timeline p { text-align: left; }

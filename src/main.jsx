@@ -256,15 +256,23 @@ function Projects() {
                   <a className="btn btn-light" href={p.url} target="_blank" rel="noreferrer">Ver no GitHub <Arrow /></a>
                 </Magnetic>
               </div>
-              <a className={`project-media ${p.ratio === '4 / 5' ? 'is-tall' : ''}`} href={p.url} target="_blank" rel="noreferrer" data-cursor="Abrir" aria-label={`Abrir ${p.name} no GitHub`}>
-                <div className="browser">
-                  <div className="browser-bar"><i /><i /><i /><span>{p.id}.markoswcs.dev</span></div>
-                  <div className="browser-view">
-                    {p.image
-                      ? <img {...img(p.image, p.image === 'notion' ? [700, 1300] : p.image === 'gabriella' ? [700, 1200] : [800, 1600])} sizes="(max-width: 900px) 92vw, 55vw" loading="lazy" decoding="async" alt={`Tela do projeto ${p.name}`} />
-                      : <FlowyArt />}
+              <a className={`project-media ${p.device === 'tall' ? 'is-tall' : ''}`} href={p.url} target="_blank" rel="noreferrer" data-cursor="Abrir" aria-label={`Abrir ${p.name} no GitHub`}>
+                {p.device === 'phone' ? (
+                  <div className="phone">
+                    <div className="phone-view">
+                      <img {...img(p.image, p.widths)} sizes="320px" loading="lazy" decoding="async" alt={`Tela real do app ${p.name}`} />
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="browser">
+                    <div className="browser-bar"><i /><i /><i /><span>{p.id}.markoswcs.dev</span></div>
+                    <div className="browser-view">
+                      {p.image
+                        ? <img {...img(p.image, p.widths)} sizes="(max-width: 900px) 92vw, 55vw" loading="lazy" decoding="async" alt={`Tela real do projeto ${p.name}`} />
+                        : <FlowyArt />}
+                    </div>
+                  </div>
+                )}
               </a>
             </div>
           </article>
@@ -441,7 +449,7 @@ function useAnimations(root) {
       cards.forEach((card, i) => {
         const inner = card.querySelector('.project-inner');
         gsap.from(card.querySelectorAll('.project-info > *'), { y: 40, opacity: 0, duration: 1, stagger: 0.06, ease: 'expo.out', scrollTrigger: { trigger: card, start: 'top 70%' } });
-        gsap.fromTo(card.querySelector('.browser-view img, .flowy-art'), { scale: 1.15 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: card, start: 'top bottom', end: 'top 20%', scrub: true } });
+        gsap.fromTo(card.querySelector('.browser-view img, .phone-view img, .flowy-art'), { scale: 1.15 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: card, start: 'top bottom', end: 'top 20%', scrub: true } });
         if (i < cards.length - 1 && window.innerWidth > 900) {
           gsap.to(inner, {
             scale: 0.9, filter: 'brightness(.45)', ease: 'none',
