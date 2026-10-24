@@ -2,12 +2,13 @@
 
 Site pessoal de **Markos Winycius**, engenheiro de software, com projetos, competências, formação e formas de contato em uma experiência visual interativa.
 
-![Prévia do portfólio](public/assets/hero-source.png)
+![Prévia do portfólio](public/img/markos-foto-900.webp)
 
 ## Destaques
 
-- Experiência imersiva com animações de rolagem usando GSAP e Lenis.
-- Galeria de projetos com mockups de produto e links para os repositórios.
+- Preloader, cursor customizado, botões magnéticos e revelações de texto com GSAP + ScrollTrigger e rolagem suave com Lenis.
+- Cards de projeto empilhados em molduras de navegador, com parallax e inclinação 3D.
+- Imagens em WebP responsivo (srcset), com originais em `design/originais`.
 - Seções de criatividade, competências, formação e contato.
 - Layout responsivo para desktop e dispositivos móveis.
 - Interface criada com React e Vite.
@@ -48,3 +49,11 @@ Os arquivos otimizados serão gerados em `dist/`.
 ---
 
 Feito por Markos Winycius.
+
+## Imagens
+
+Os originais ficam em `design/originais/` (fora do build). Para regenerar as versões WebP otimizadas em `public/img/`:
+
+```bash
+npm run images
+```
