@@ -77,24 +77,57 @@ function Cursor() {
   return <><div className="cursor-dot" ref={dot} /><div className="cursor-ring" ref={ring} /></>;
 }
 
+const sections = [['#sobre', 'Sobre'], ['#projetos', 'Projetos'], ['#skills', 'Skills'], ['#formacao', 'Formação']];
+
 function Nav() {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    document.documentElement.classList.toggle('menu-open', open);
+    open ? lenis?.stop() : lenis?.start();
+    const esc = e => e.key === 'Escape' && setOpen(false);
+    window.addEventListener('keydown', esc);
+    return () => window.removeEventListener('keydown', esc);
+  }, [open]);
   const go = e => {
     const href = e.currentTarget.getAttribute('href');
     if (!href.startsWith('#')) return;
     e.preventDefault();
+    setOpen(false);
+    lenis?.start();
     lenis ? lenis.scrollTo(href, { offset: 0, duration: 1.4 }) : document.querySelector(href)?.scrollIntoView();
   };
   return (
-    <header className="nav">
-      <a href="#top" className="nav-logo" onClick={go}>MW<sup>®</sup></a>
-      <nav aria-label="Seções">
-        {[['#sobre', 'Sobre'], ['#projetos', 'Projetos'], ['#skills', 'Skills'], ['#formacao', 'Formação']].map(([href, label]) => (
-          <a key={href} href={href} onClick={go}><span data-text={label}>{label}</span></a>
-        ))}
-      </nav>
-      <a href="#contato" className="nav-cta" onClick={go}>Contato</a>
-      <div className="nav-progress"><i /></div>
-    </header>
+    <>
+      <header className="nav">
+        <a href="#top" className="nav-logo" onClick={go}>MW<sup>®</sup></a>
+        <nav aria-label="Seções">
+          {sections.map(([href, label]) => (
+            <a key={href} href={href} onClick={go}><span data-text={label}>{label}</span></a>
+          ))}
+        </nav>
+        <div className="nav-right">
+          <a href="#contato" className="nav-cta" onClick={go}>Contato</a>
+          <button type="button" className={`nav-burger ${open ? 'is-open' : ''}`} aria-label={open ? 'Fechar menu' : 'Abrir menu'} aria-expanded={open} aria-controls="menu-mobile" onClick={() => setOpen(o => !o)}>
+            <i /><i />
+          </button>
+        </div>
+        <div className="nav-progress"><i /></div>
+      </header>
+      <div className={`menu-mobile ${open ? 'is-open' : ''}`} id="menu-mobile" aria-hidden={!open}>
+        <nav aria-label="Menu">
+          {[...sections, ['#contato', 'Contato']].map(([href, label], i) => (
+            <a key={href} href={href} onClick={go} tabIndex={open ? 0 : -1} style={{ '--i': i }}>
+              <small>0{i + 1}</small>{label}
+            </a>
+          ))}
+        </nav>
+        <div className="menu-mobile-foot">
+          <a href={contact.whatsapp} target="_blank" rel="noreferrer" tabIndex={open ? 0 : -1}>WhatsApp ↗</a>
+          <a href={contact.linkedin} target="_blank" rel="noreferrer" tabIndex={open ? 0 : -1}>LinkedIn ↗</a>
+          <a href={contact.github} target="_blank" rel="noreferrer" tabIndex={open ? 0 : -1}>GitHub ↗</a>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -446,16 +479,19 @@ function useAnimations(root) {
 
       // Cartões de projeto empilhados: o anterior recua quando o próximo chega.
       const cards = gsap.utils.toArray('.project');
-      cards.forEach((card, i) => {
-        const inner = card.querySelector('.project-inner');
+      cards.forEach(card => {
         gsap.from(card.querySelectorAll('.project-info > *'), { y: 40, opacity: 0, duration: 1, stagger: 0.06, ease: 'expo.out', scrollTrigger: { trigger: card, start: 'top 70%' } });
         gsap.fromTo(card.querySelector('.browser-view img, .phone-view img, .flowy-art'), { scale: 1.15 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: card, start: 'top bottom', end: 'top 20%', scrub: true } });
-        if (i < cards.length - 1 && window.innerWidth > 900) {
-          gsap.to(inner, {
-            scale: 0.9, filter: 'brightness(.45)', ease: 'none',
+      });
+      // O empilhamento só existe no desktop, onde os cards são sticky.
+      gsap.matchMedia().add('(min-width: 901px)', () => {
+        cards.slice(0, -1).forEach((card, i) => {
+          // Parte de brightness(1) explícito: a partir de "none" o GSAP interpola desde 0 e o card fica preto.
+          gsap.fromTo(card.querySelector('.project-inner'), { scale: 1, filter: 'brightness(1)' }, {
+            scale: 0.94, filter: 'brightness(.6)', ease: 'none',
             scrollTrigger: { trigger: cards[i + 1], start: 'top bottom', end: 'top 14%', scrub: true },
           });
-        }
+        });
       });
 
       gsap.from('.bento-card', { y: 80, opacity: 0, duration: 1.1, stagger: 0.08, ease: 'expo.out', scrollTrigger: { trigger: '.bento', start: 'top 80%' } });
@@ -470,6 +506,9 @@ function useAnimations(root) {
       gsap.from('.contact-title .char, .contact-title em', { yPercent: 110, duration: 1.2, stagger: 0.03, ease: 'expo.out', scrollTrigger: { trigger: '.contact-title', start: 'top 80%' } });
       gsap.from('.footer-name', { yPercent: 60, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.footer-bottom', start: 'top bottom', end: 'max', scrub: true } });
     }, root);
+
+    // As fontes da web mudam a altura dos textos; recalcula os gatilhos depois que carregam.
+    document.fonts?.ready.then(() => ScrollTrigger.refresh());
 
     return () => { ctx.revert(); gsap.ticker.remove(tick); lenis?.destroy(); lenis = undefined; };
   }, []);
